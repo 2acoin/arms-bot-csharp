@@ -1,7 +1,7 @@
 {
   "databaseFile": "2ACoin.db",
-  "logLevel": 2,
-  "botToken": "{BOT_TOKEN}",
+  "logLevel": 1,
+  "botToken": "[BOT TOKEN]",
   "botPrefix": ".",
   "botMessageCache": 100,
   "coinName": "2ACoin",
@@ -24,7 +24,7 @@
   "faucetEndpoint": "https://faucet.2acoin.org/balance",
   "faucetAddress": "gunsAwiL53dLvBQ9DKB6DD7svVXkyUPJ4BqHEGxooqL8FRb9Xti8CaCQWY8gCSkCCe1d77eQbyn1S7gsXYjQHFBEADRfG6vSVh",
   "marketSource": "BitexBay",
-  "marketEndpoint": "https://oapi.bitexbay.com/v2/allticker.php?apikey=[API KEY]",
+  "marketEndpoint": "https://oapi.bitexbay.com/v2/tickers.php?apikey=[API KEY]&tid=ARMS-BTC",
   "marketBTCEndpoint": "https://www.bitstamp.net/api/ticker/",
   "marketDisallowedServers": [
     388915017187328002
@@ -32,7 +32,7 @@
   "daemonHost": "public.2acoin.org",
   "daemonPort": 17910,
   "walletHost": "127.0.0.1",
-  "walletPort": 19760,
+  "walletPort": 17760,
   "walletRpcPassword": "12345",
   "walletUpdateDelay": 500
 }

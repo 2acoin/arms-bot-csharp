@@ -17,11 +17,10 @@ namespace TrtlBotSharp
 
             // Use last block hash to get last block from the network
             string LastBlockHash = (string)Result["block_header"]["hash"];
-            Result = Request.RPC(daemonHost, daemonPort, "f_block_json", new JObject { ["hash"] = LastBlockHash });
+            Result = Request.RPC(daemonHost, daemonPort, "f_block_json", new JObject { ["hash"]=LastBlockHash });
             if (Result.Count < 1 || Result.ContainsKey("error")) return 0;
 
-            // Return current supply
-            return (decimal)Result["block"]["alreadyGeneratedCoins"] / 100;
+			return (decimal)Result["block"]["alreadyGeneratedCoins"] / 100000000;
         }
 
         // Gets the bot's wallet address

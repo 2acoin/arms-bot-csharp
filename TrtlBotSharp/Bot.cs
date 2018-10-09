@@ -34,9 +34,9 @@ namespace TrtlBotSharp
             SocketConfig.MessageCacheSize = botMessageCache;
 
             // Load local files
-            Log(0, "TrtlBot", "Loading config");
+            Log(0, "ARMSBot", "Loading config");
             await LoadConfig();
-            Log(0, "TrtlBot", "Loading database");
+            Log(0, "ARMSBot", "Loading database");
             await LoadDatabase();
 
             // Populate API variables
@@ -52,13 +52,13 @@ namespace TrtlBotSharp
             _client.Ready += Ready;
 
             // Register commands and start bot
-            Log(0, "TrtlBot", "Starting discord client");
+            Log(0, "ARMSBot", "Starting discord client");
             await RegisterCommandsAsync();
             await _client.LoginAsync(TokenType.Bot, botToken);
             await _client.StartAsync();
 
             // Set tip bot address
-            Log(0, "TrtlBot", "Setting default address");
+            Log(0, "ARMSBot", "Setting default address");
             await SetAddress();
 
             // Rest until a disconnect is detected
@@ -72,7 +72,7 @@ namespace TrtlBotSharp
             // Begin wallet monitoring once gateway reports as ready
             if (!Monitoring)
             {
-                Log(0, "TrtlBot", "Starting wallet monitor");
+                Log(0, "ARMSBot", "Starting wallet monitor");
                 BeginMonitoring();
                 Monitoring = true;
             }
@@ -99,7 +99,7 @@ namespace TrtlBotSharp
 
             // Restart if disconnected
             if (arg.Message.Contains("Disconnected"))
-                Log(0, "TrtlBot", "Restarting bot...");
+                Log(0, "ARMSBot", "Restarting bot...");
 
             // Completed
             return Task.CompletedTask;
@@ -216,7 +216,7 @@ namespace TrtlBotSharp
                         var Response = new EmbedBuilder();
                         Response.WithTitle(string.Format("{0} wants to tip you!", _client.GetUser(Reaction.UserId).Username));
                         Response.Description = string.Format("Register your wallet with with `{0}registerwallet <your {1} address>` " +
-                            "to get started!\nTo create a wallet head to https://turtlecoin.lol/wallet/\nExtra Help: http://docs.turtlecoin.lol/",
+                            "to get started!\nTo create a wallet head to https://wallet.2acoin.org/\nExtra Help: http://docs.2acoin.org/",
                             botPrefix, coinSymbol);
 
                         // Send reply

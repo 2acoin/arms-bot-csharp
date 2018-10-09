@@ -301,7 +301,9 @@ namespace TrtlBotSharp
             // Check if an address is specified instead of mentioned users
             string Address = "";
             if (Remainder.StartsWith(TrtlBotSharp.coinAddressPrefix) && Remainder.Length == TrtlBotSharp.coinAddressLength)
-                Address = Remainder.Substring(0, 99);
+                Address = Remainder.Substring(0, 97);
+
+			if (TrtlBotSharp.logLevel >= 3) Console.Write($"The wallet ADDRESS is = *{Address}*\n");
 
             // Check that there is at least one mentioned user
             if (Address == "" && Context.Message.MentionedUsers.Count < 1) return;
@@ -309,8 +311,12 @@ namespace TrtlBotSharp
             // Remove duplicate mentions
             List<ulong> Users = new List<ulong>();
             foreach (SocketUser MentionedUser in Context.Message.MentionedUsers)
+			{
                 Users.Add(MentionedUser.Id);
-            Users = Users.Distinct().ToList();
+				if (TrtlBotSharp.logLevel >= 3) Console.Write($"MentionedUserID = *{MentionedUser.Id}*\n");
+			}	
+            
+			Users = Users.Distinct().ToList();
 
             // Create a list of users that have wallets
             List<ulong> TippableUsers = new List<ulong>();
@@ -318,18 +324,26 @@ namespace TrtlBotSharp
             {
                 if (TrtlBotSharp.CheckUserExists(Id) && Id != Context.Message.Author.Id)
                     TippableUsers.Add(Id);
+				if (TrtlBotSharp.logLevel >= 3)
+				{
+					Console.Write($"CheckUserExists ID  = *{Id}*\n");
+					Console.Write($"TippableUsers Count = {TippableUsers.Count}\n");
+					Console.Write($"Tip Amount          = {Amount}\n");
+				}
             }
 
+			if (TrtlBotSharp.logLevel >= 3) Console.Write($"Tip Fee = {TrtlBotSharp.tipFee}\n");
+
             // Check that user has enough balance for the tip
-            if (Address == "" && TrtlBotSharp.GetBalance(Context.Message.Author.Id) < Convert.ToDecimal(Amount) * TippableUsers.Count + TrtlBotSharp.tipFee)
+            if (Address == "" && TrtlBotSharp.GetBalance(Context.Message.Author.Id) < ((Convert.ToDecimal(Amount) * TippableUsers.Count) + TrtlBotSharp.tipFee))
             {
-                await Context.Message.Author.SendMessageAsync(string.Format("Your balance is too low! Amount + Fee = **{0:N}** {1}",
-                    Convert.ToDecimal(Amount) * TippableUsers.Count + TrtlBotSharp.tipFee, TrtlBotSharp.coinSymbol));
+                await Context.Message.Author.SendMessageAsync(string.Format("1-Your balance is too low! Amount + Fee = **{0:N}** {1}",
+                    ((Convert.ToDecimal(Amount) * TippableUsers.Count) + TrtlBotSharp.tipFee), TrtlBotSharp.coinSymbol));
                 await Context.Message.AddReactionAsync(new Emoji(TrtlBotSharp.tipLowBalanceReact));
             }
             else if (TrtlBotSharp.GetBalance(Context.Message.Author.Id) < Convert.ToDecimal(Amount) + TrtlBotSharp.tipFee)
             {
-                await Context.Message.Author.SendMessageAsync(string.Format("Your balance is too low! Amount + Fee = **{0:N}** {1}",
+                await Context.Message.Author.SendMessageAsync(string.Format("2-Your balance is too low! Amount + Fee = **{0:N}** {1}",
                     Convert.ToDecimal(Amount) + TrtlBotSharp.tipFee, TrtlBotSharp.coinSymbol));
                 await Context.Message.AddReactionAsync(new Emoji(TrtlBotSharp.tipLowBalanceReact));
             }

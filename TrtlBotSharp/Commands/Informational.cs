@@ -132,12 +132,12 @@ namespace TrtlBotSharp
                 Output += "Tipping:\n";
                 Output += "  registerwallet\tRegisters your wallet with the tip bot\n";
                 Output += "  updatewallet\tUpdates your registered wallet\n";
-                Output += "  wallet\tGives the wallet address for a specified user or your own address if no user is specified\n";
-                Output += "  deposit\tGives information on how to deposit into your tipping balance\n";
-                Output += "  withdraw\tWithdraws a specified amount from your tip jar into your registered wallet\n";
+                Output += "  wallet\tGives the wallet address for a \n \tspecified user or your own \n \taddress if no user is specified\n";
+                Output += "  deposit\tGives information on how to deposit\n \tinto your tipping balance\n";
+                Output += "  withdraw\tWithdraws a specified amount from your\n \ttip jar into your registered wallet\n";
                 Output += "  balance\tGives your current tip jar balance\n";
-                Output += "  tip\tTips one or more users a specified amount\n";
-                Output += "  redirecttips\tSets whether you'd like tips sent directly to your wallet or redirected back into your tip jar";
+                Output += "  tip\tTips one or more users a specified\n \tamount\n";
+                Output += "  redirecttips\tSets whether you'd like tips sent\n \tdirectly to your wallet or redirected\n \tback into your tip jar";
                 Output = string.Format("```" + TrtlBotSharp.Prettify(Output) + "```**Note:** You can use *{0}help <Name of Command>* for " +
                     "additional help with any command", TrtlBotSharp.botPrefix);
                 Response.WithDescription(Output);

@@ -1,2 +1,2 @@
-﻿dotnet publish {system path to TrtlBotSharp.csproj} -c Release -r {runtime environment, example: win10-x64}
+﻿dotnet publish C:\Users\Benjamin\Desktop\tip\TrtlBotSharp\TrtlBotSharp.csproj -c Release -r win10-x64
 pause

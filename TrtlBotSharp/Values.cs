@@ -32,24 +32,24 @@ namespace TrtlBotSharp
 
         // Bot Variables
         public static string
-            botToken = "0",
+            botToken = "[BOT TOKEN]",
             botPrefix = ".";
         public static int
-            botMessageCache = 0;
+            botMessageCache = 100;
 
         // Currency Variables
         public static string
-            coinName = "TurtleCoin",
-            coinSymbol = "TRTL",
-            coinAddressPrefix = "TRTL";
+            coinName = "2ACoin",
+            coinSymbol = "ARMS",
+            coinAddressPrefix = "guns";
         public static decimal
-            coinUnits = 100;
+            coinUnits = 100000000;
         public static int
-            coinAddressLength = 99;
+            coinAddressLength = 98;
 
         // Tipping Variables
         public static decimal
-            tipFee = 10;
+            tipFee = 0005;
         public static int
             tipMixin = 3;
         public static string
@@ -65,28 +65,28 @@ namespace TrtlBotSharp
 
         // Faucet Variables
         public static string
-            faucetHost = "https://faucet.trtl.me/",
-            faucetEndpoint = "https://faucet.trtl.me/balance",
-            faucetAddress = "TRTLv14M1Q9223QdWMmJyNeY8oMjXs5TGP9hDc3GJFsUVdXtaemn1mLKA25Hz9PLu89uvDafx9A93jW2i27E5Q3a7rn8P2fLuVA";
+            faucetHost = "https://faucet.2acoin.org/",
+            faucetEndpoint = "https://faucet.2acoin.org/balance",
+            faucetAddress = "gunsAwiL53dLvBQ9DKB6DD7svVXkyUPJ4BqHEGxooqL8FRb9Xti8CaCQWY8gCSkCCe1d77eQbyn1S7gsXYjQHFBEADRfG6vSVh";
 
         // Market Variables
         public static string
-            marketSource = "TradeOgre",
-            marketEndpoint = "https://tradeogre.com/api/v1/ticker/BTC-TRTL",
+            marketSource = "BitexBay",
+            marketEndpoint = "https://oapi.bitexbay.com/v2/tickers.php?apikey=[API KEY]&tid=ARMS-BTC",
             marketBTCEndpoint = "https://www.bitstamp.net/api/ticker/";
 
         // Daemon Variables
         public static string
             daemonHost = "127.0.0.1";
         public static int
-            daemonPort = 11898;
+            daemonPort = 17910;
 
         // Wallet Variables
         public static string
             walletHost = "127.0.0.1",
-            walletRpcPassword = "password";
+            walletRpcPassword = "12345";
         public static int
-            walletPort = 8070,
-            walletUpdateDelay = 5000;
+            walletPort = 17760,
+            walletUpdateDelay = 500;
     }
 }

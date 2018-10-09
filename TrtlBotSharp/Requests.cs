@@ -21,14 +21,14 @@ namespace TrtlBotSharp
 
                 // Create a JSON request
                 JObject JRequest = new JObject();
-                if (Params != null) JRequest["params"] = Params;
                 JRequest.Add(new JProperty("jsonrpc", "2.0"));
                 JRequest.Add(new JProperty("id", "0"));
                 JRequest.Add(new JProperty("method", Method));
+                if (Params != null) JRequest["params"] = Params;
                 if (Password != null) JRequest.Add(new JProperty("password", Password));
                 string Request = JRequest.ToString();
-
-                if (Method != "getStatus" && TrtlBotSharp.logLevel >= 3) Console.WriteLine(Request);
+				
+                if (Method != "getStatus" && TrtlBotSharp.logLevel >= 3) Console.WriteLine($"Host={Host}\n Port={Port}\n The JSON Request Is = {Request}");
 
                 // Send bytes to server
                 byte[] ByteArray = Encoding.UTF8.GetBytes(Request);
@@ -43,7 +43,7 @@ namespace TrtlBotSharp
 
                 // Get response
                 Result = JObject.Parse(reader.ReadToEnd());
-                if (Method != "getStatus" && TrtlBotSharp.logLevel >= 3) Console.WriteLine(Result.ToString());
+                if (Method != "getStatus" && TrtlBotSharp.logLevel >= 3) Console.WriteLine($"The returned result is --> {Result.ToString()}");
                 if (Result.ContainsKey("result")) Result = (JObject)Result["result"];
 
                 // Dispose of pieces
@@ -52,7 +52,7 @@ namespace TrtlBotSharp
             }
             catch (Exception e)
             {
-                TrtlBotSharp.Log(2, "TrtlBot", "Failed while sending request to host {0}: {1}", Host, e.Message);
+                TrtlBotSharp.Log(2, "ARMSBot", "Failed while sending request to host {0}: {1}", Host, e.Message);
             }
             return Result;
         }
@@ -72,7 +72,7 @@ namespace TrtlBotSharp
             }
             catch
             {
-                TrtlBotSharp.Log(2, "TrtlBotSharp", "Failed while fetching data from host {0}", Host);
+                TrtlBotSharp.Log(2, "ARMSBot", "Failed while fetching data from host {0}", Host);
             }
             return Result;
         }
