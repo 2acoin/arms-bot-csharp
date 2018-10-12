@@ -23,8 +23,8 @@
   "faucetHost": "https://faucet.2acoin.org/",
   "faucetEndpoint": "https://faucet.2acoin.org/balance",
   "faucetAddress": "gunsAwiL53dLvBQ9DKB6DD7svVXkyUPJ4BqHEGxooqL8FRb9Xti8CaCQWY8gCSkCCe1d77eQbyn1S7gsXYjQHFBEADRfG6vSVh",
-  "marketSource": "BitexBay",
-  "marketEndpoint": "https://oapi.bitexbay.com/v2/tickers.php?apikey=[API KEY]&tid=ARMS-BTC",
+  "marketSource": "Kompler",
+  "marketEndpoint": "https://api.kompler.exchange/v1/markets/BTC/ARMS",
   "marketBTCEndpoint": "https://www.bitstamp.net/api/ticker/",
   "marketDisallowedServers": [
     388915017187328002

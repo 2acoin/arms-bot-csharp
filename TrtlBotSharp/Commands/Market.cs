@@ -28,24 +28,31 @@ namespace TrtlBotSharp
                 return;
             }
 			
-			//Check for no volume (null)
-			JToken token = CoinPrice["data"]["vol"];
-			decimal CoinVolume = 0;
-			if (token.Type == JTokenType.Null)
-				CoinVolume = 0;
+			//Check for NULLs in Data
+			JToken tokenLow = CoinPrice["info24h"]["low"];
+			decimal CoinLow = 0;
+			if (tokenLow.Type == JTokenType.Null)
+				CoinLow = 0;
 			else
-				CoinVolume = (decimal)CoinPrice["data"]["vol"];
+				CoinLow = (decimal)CoinPrice["info24h"]["low"];
 
-						
+			JToken tokenHigh = CoinPrice["info24h"]["high"];
+			decimal CoinHigh = 0;
+			if (tokenHigh.Type == JTokenType.Null)
+				CoinHigh = 0;
+			else
+				CoinHigh = (decimal)CoinPrice["info24h"]["high"];
+
+                
             // Begin building a response
             var Response = new EmbedBuilder();
             Response.WithTitle("Current Price of ARMS: " + TrtlBotSharp.marketSource);
             Response.WithUrl(TrtlBotSharp.marketEndpoint);
-            Response.AddInlineField("Low", string.Format("{0} sats", Math.Round((decimal)CoinPrice["data"]["low"] * 100000000)));
-            Response.AddInlineField("Current", string.Format("{0} sats", Math.Round((decimal)CoinPrice["data"]["last"] * 100000000)));
-            Response.AddInlineField("High", string.Format("{0} sats", Math.Round((decimal)CoinPrice["data"]["high"] * 100000000)));
-            Response.AddInlineField(TrtlBotSharp.coinSymbol + "-USD", string.Format("${0:N5} USD", (decimal)CoinPrice["data"]["last"] * (decimal)BTCPrice["last"]));
-            Response.AddInlineField("Volume", string.Format("{0:N} BTC", (decimal)CoinVolume));
+            Response.AddInlineField("Low", string.Format("{0} sats", Math.Round((decimal)CoinLow * 100000000)));
+            Response.AddInlineField("Current", string.Format("{0} sats", Math.Round((decimal)CoinPrice["lastPrice"] * 100000000)));
+            Response.AddInlineField("High", string.Format("{0} sats", Math.Round((decimal)CoinHigh * 100000000)));
+            Response.AddInlineField(TrtlBotSharp.coinSymbol + "-USD", string.Format("${0:N5} USD", (decimal)CoinPrice["lastPrice"] * (decimal)BTCPrice["last"]));
+            Response.AddInlineField("Volume", string.Format("{0:N} BTC", (decimal)CoinPrice["volume"]));
             Response.AddInlineField("BTC-USD", string.Format("{0:C} USD", (decimal)BTCPrice["last"]));
 			
             // Send reply
@@ -79,7 +86,7 @@ namespace TrtlBotSharp
 
             // Begin building a response
             string Response = string.Format("{0}'s market cap is **{1:c}** USD", TrtlBotSharp.coinName,
-                (decimal)CoinPrice["data"]["last"] * (decimal)BTCPrice["last"] * TrtlBotSharp.GetSupply());
+                (decimal)CoinPrice["lastPrice"] * (decimal)BTCPrice["last"] * TrtlBotSharp.GetSupply());
 
             // Send reply
             if (Context.Guild != null && TrtlBotSharp.marketDisallowedServers.Contains(Context.Guild.Id))

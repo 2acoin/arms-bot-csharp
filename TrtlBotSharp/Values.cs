@@ -49,7 +49,7 @@ namespace TrtlBotSharp
 
         // Tipping Variables
         public static decimal
-            tipFee = 0005;
+            tipFee = .0005;
         public static int
             tipMixin = 3;
         public static string
