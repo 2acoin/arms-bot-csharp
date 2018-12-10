@@ -1,11 +1,4 @@
-﻿using Discord;
-using Discord.Commands;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Threading.Tasks;
-
-namespace TrtlBotSharp
-{
+using Discord; using Discord.Commands; using Newtonsoft.Json.Linq; using System; using System.Threading.Tasks; namespace TrtlBotSharp {
     public partial class Commands : ModuleBase<SocketCommandContext>
     {
         [Command("price")]
@@ -18,7 +11,6 @@ namespace TrtlBotSharp
                 await ReplyAsync("Failed to connect to " + TrtlBotSharp.marketSource);
                 return;
             }
-
 			
             // Get current BTC price
             JObject BTCPrice = Request.GET(TrtlBotSharp.marketBTCEndpoint);
@@ -28,21 +20,20 @@ namespace TrtlBotSharp
                 return;
             }
 			
-			//Check for NULLs in Data
-			JToken tokenLow = CoinPrice["info24h"]["low"];
-			decimal CoinLow = 0;
-			if (tokenLow.Type == JTokenType.Null)
-				CoinLow = 0;
-			else
-				CoinLow = (decimal)CoinPrice["info24h"]["low"];
-
-			JToken tokenHigh = CoinPrice["info24h"]["high"];
-			decimal CoinHigh = 0;
-			if (tokenHigh.Type == JTokenType.Null)
-				CoinHigh = 0;
-			else
-				CoinHigh = (decimal)CoinPrice["info24h"]["high"];
-
+	    //Check for NULLs in Data
+	    JToken tokenLow = CoinPrice["info24h"]["low"];
+	    decimal CoinLow = 0;
+		if (tokenLow.Type == JTokenType.Null)
+			CoinLow = 0;
+		else
+			CoinLow = (decimal)CoinPrice["info24h"]["low"];
+	    
+            JToken tokenHigh = CoinPrice["info24h"]["high"];
+	    decimal CoinHigh = 0;
+		if (tokenHigh.Type == JTokenType.Null)
+			CoinHigh = 0;
+		else
+			CoinHigh = (decimal)CoinPrice["info24h"]["high"];
                 
             // Begin building a response
             var Response = new EmbedBuilder();
@@ -64,7 +55,6 @@ namespace TrtlBotSharp
             }
             else await ReplyAsync("", false, Response);
         }
-
         [Command("mcap")]
         public async Task MarketCapAsync([Remainder]string Remainder = "")
         {
@@ -75,7 +65,6 @@ namespace TrtlBotSharp
                 await ReplyAsync("Failed to connect to " + TrtlBotSharp.marketSource);
                 return;
             }
-
             // Get current BTC price
             JObject BTCPrice = Request.GET(TrtlBotSharp.marketBTCEndpoint);
             if (BTCPrice.Count < 1)
@@ -83,11 +72,9 @@ namespace TrtlBotSharp
                 await ReplyAsync("Failed to connect to " + TrtlBotSharp.marketBTCEndpoint);
                 return;
             }
-
             // Begin building a response
             string Response = string.Format("{0}'s market cap is **{1:c}** USD", TrtlBotSharp.coinName,
                 (decimal)CoinPrice["lastPrice"] * (decimal)BTCPrice["last"] * TrtlBotSharp.GetSupply());
-
             // Send reply
             if (Context.Guild != null && TrtlBotSharp.marketDisallowedServers.Contains(Context.Guild.Id))
             {
