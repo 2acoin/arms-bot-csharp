@@ -1,4 +1,11 @@
-using Discord; using Discord.Commands; using Newtonsoft.Json.Linq; using System; using System.Threading.Tasks; namespace TrtlBotSharp {
+using Discord; 
+using Discord.Commands; 
+using Newtonsoft.Json.Linq; 
+using System; 
+using System.Threading.Tasks; 
+
+namespace TrtlBotSharp 
+{
     public partial class Commands : ModuleBase<SocketCommandContext>
     {
         [Command("price")]
