@@ -72,13 +72,14 @@ namespace TrtlBotSharp
             else await ReplyAsync("", false, Response);
  
             // Raisex 
+            Response = new EmbedBuilder();
             Response.WithTitle("Current Price of ARMS: " + TrtlBotSharp.marketSourceR);
             Response.WithUrl(TrtlBotSharp.marketEndpointR);
             Response.AddInlineField("Low", string.Format("{0} sats", Math.Round((decimal)CoinPriceR["low"] * 100000000)));
             Response.AddInlineField("Current", string.Format("{0} sats", Math.Round((decimal)CoinPriceR["last"] * 100000000)));
             Response.AddInlineField("High", string.Format("{0} sats", Math.Round((decimal)CoinPriceR["high"] * 100000000)));
             Response.AddInlineField(TrtlBotSharp.coinSymbol + "-USD", string.Format("${0:N5} USD", (decimal)CoinPriceR["last"] * (decimal)BTCPrice["last"]));
-            Response.AddInlineField("Volume", string.Format("{0:N} BTC", (decimal)CoinPriceR["volume"]));
+            Response.AddInlineField("Volume", string.Format("{0:N} BTC", ((decimal)CoinPriceR["volume"] * (decimal)BTCPrice["last"])));
             Response.AddInlineField("BTC-USD", string.Format("{0:C} USD", (decimal)BTCPrice["last"]));
 			
             // Send Raisex reply
