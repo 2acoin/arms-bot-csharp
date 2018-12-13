@@ -61,6 +61,16 @@ namespace TrtlBotSharp
             Response.AddInlineField(TrtlBotSharp.coinSymbol + "-USD", string.Format("${0:N5} USD", (decimal)CoinPriceK["lastPrice"] * (decimal)BTCPrice["last"]));
             Response.AddInlineField("Volume", string.Format("{0:N} BTC", (decimal)CoinPriceK["volume"]));
             Response.AddInlineField("BTC-USD", string.Format("{0:C} USD", (decimal)BTCPrice["last"]));
+ 
+            // Send Kompler reply
+            if (Context.Guild != null && TrtlBotSharp.marketDisallowedServers.Contains(Context.Guild.Id))
+            {
+                try { await Context.Message.DeleteAsync(); }
+                catch { }
+                await Context.Message.Author.SendMessageAsync("", false, Response);
+            }
+            else await ReplyAsync("", false, Response);
+ 
             // Raisex 
             Response.WithTitle("Current Price of ARMS: " + TrtlBotSharp.marketSourceR);
             Response.WithUrl(TrtlBotSharp.marketEndpointR);
@@ -71,7 +81,7 @@ namespace TrtlBotSharp
             Response.AddInlineField("Volume", string.Format("{0:N} BTC", (decimal)CoinPriceR["volume"]));
             Response.AddInlineField("BTC-USD", string.Format("{0:C} USD", (decimal)BTCPrice["last"]));
 			
-            // Send reply
+            // Send Raisex reply
             if (Context.Guild != null && TrtlBotSharp.marketDisallowedServers.Contains(Context.Guild.Id))
             {
                 try { await Context.Message.DeleteAsync(); }
