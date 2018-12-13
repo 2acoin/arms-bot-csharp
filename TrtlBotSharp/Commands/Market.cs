@@ -41,14 +41,14 @@ namespace TrtlBotSharp
 		if (tokenLow.Type == JTokenType.Null)
 			CoinLow = 0;
 		else
-			CoinLow = (decimal)CoinPrice["info24h"]["low"];
+			CoinLow = (decimal)CoinPriceK["info24h"]["low"];
 	    
             JToken tokenHigh = CoinPriceK["info24h"]["high"];
 	    decimal CoinHigh = 0;
 		if (tokenHigh.Type == JTokenType.Null)
 			CoinHigh = 0;
 		else
-			CoinHigh = (decimal)CoinPrice["info24h"]["high"];
+			CoinHigh = (decimal)CoinPriceK["info24h"]["high"];
                 
             // Begin building a response
             // Kompler
@@ -108,7 +108,7 @@ namespace TrtlBotSharp
             }
 
             // Calculate a weighted avg price
-            CoinPrice = ((decimal)CoinPriceK["lastPrice"] + (decimal)CoinPriceR["last"]) / 2;
+            decimal CoinPrice = ((decimal)CoinPriceK["lastPrice"] + (decimal)CoinPriceR["last"]) / 2;
             
             // Begin building a response
             string Response = string.Format("{0}'s market cap is **{1:c}** USD", TrtlBotSharp.coinName,
