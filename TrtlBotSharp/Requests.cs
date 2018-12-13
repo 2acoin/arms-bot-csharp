@@ -66,6 +66,8 @@ namespace TrtlBotSharp
                 // Create a disposable web client
                 using (WebClient client = new WebClient())
                 {
+                    // Add user-agent headers
+                    client.Headers.Add ("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)");
                     // Get response
                     Result = JObject.Parse(client.DownloadString(Host));
                 }
