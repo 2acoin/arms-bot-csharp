@@ -71,8 +71,10 @@ namespace TrtlBotSharp
 
         // Market Variables
         public static string
-            marketSource = "BitexBay",
-            marketEndpoint = "https://oapi.bitexbay.com/v2/tickers.php?apikey=[API KEY]&tid=ARMS-BTC",
+            marketSourceK = "Kompler",
+            marketEndpointK = "https://api.kompler.exchange/v1/markets/BTC/ARMS",
+            marketSourceR = "Raisex",
+            marketEndpointR = "https://raisex.io/market_summary/ARMS/BTC",
             marketBTCEndpoint = "https://www.bitstamp.net/api/ticker/";
 
         // Daemon Variables
