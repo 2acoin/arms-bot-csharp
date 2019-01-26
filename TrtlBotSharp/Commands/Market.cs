@@ -123,7 +123,7 @@ namespace TrtlBotSharp
             
             // Begin building a response
             string Response = string.Format("{0}'s market cap is **{1:c}** USD", TrtlBotSharp.coinName,
-                (CoinPrice * (decimal)BTCPrice["last"]) * TrtlBotSharp.GetSupply());
+                ((decimal)CoinPrice * (decimal)BTCPrice["last"]) * TrtlBotSharp.GetSupply());
             // Send reply
             if (Context.Guild != null && TrtlBotSharp.marketDisallowedServers.Contains(Context.Guild.Id))
             {
