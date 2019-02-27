@@ -60,6 +60,10 @@ namespace TrtlBotSharp
             // Set tip bot address
             Log(0, "ARMSBot", "Setting default address");
             await SetAddress();
+            
+            // Create cache location for Markets Data
+            Log(0, "ARMSBot", "Caching Market Data");
+            await GetMarketCache();
 
             // Rest until a disconnect is detected
             Disconnected = false;

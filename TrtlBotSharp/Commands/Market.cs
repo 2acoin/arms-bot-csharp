@@ -67,8 +67,9 @@ namespace TrtlBotSharp
             Response.AddInlineField("Volume BTC/USD", string.Format("{0:N}/{1:C}", ((decimal)CoinPriceR["volume"] * (decimal)CoinPriceR["last"]), ((decimal)CoinPriceR["volume"] * (decimal)CoinPriceR["last"]) * (decimal)BTCPrice["last"]));
             Response.AddInlineField("BTC-USD", string.Format("{0:C} USD", (decimal)BTCPrice["last"]));
 			
+            await TrtlBotSharp.GetMarketCache();
             DateTime cachedDate = DateTime.Parse(TrtlBotSharp.marketCacheArray[0]);
-            Response.AddInlineField("Data as of - ", string.Format("{0}", cachedDate));
+            Response.AddInlineField("Data as of", string.Format("{0}", cachedDate));
 
 
             // Send Raisex reply
