@@ -76,6 +76,10 @@ namespace TrtlBotSharp
             marketSourceR = "Raisex",
             marketEndpointR = "https://raisex.io/market_summary/ARMS/BTC",
             marketBTCEndpoint = "https://www.bitstamp.net/api/ticker/";
+        
+        // Market Cache 
+        public static string[]
+            marketCacheArray = { "", "ck-low", "ck-high", "ck-last", "ck-vol", "cr-low", "cr-high", "cr-last", "cr-vol" };
 
         // Daemon Variables
         public static string

@@ -45,6 +45,14 @@ namespace TrtlBotSharp
             return Task.CompletedTask;
         }
 
+        // Sets Market Rate Caches
+        public static Task GetMarketCache()
+        {
+            string marketCacheNow = DateTime.Now.ToString("MM/dd/yyyy h:mm tt");
+            marketCacheArray[0] =  marketCacheNow;
+            return Task.CompletedTask;
+        }
+        
         // Formats hashrate into a readable format
         public static string FormatHashrate(decimal Hashrate)
         {
