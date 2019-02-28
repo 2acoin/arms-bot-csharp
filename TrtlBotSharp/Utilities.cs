@@ -56,8 +56,8 @@ namespace TrtlBotSharp
             
             if (elapsedTime.Minutes < 15)
             {
-                Log(0, "ARMSBot", "Elapsed time less than 15 Minutes - " + elapsed.Minutes);
-                return Task.TaskCompleted;  // return if less than 15 minutes of cache time has passed
+                Log(0, "ARMSBot", "Elapsed time less than 15 Minutes - " + elapsedTime.Minutes);
+                return Task.CompletedTask;  // return if less than 15 minutes of cache time has passed
             }
 
             // Get current coin price - FCB 
@@ -65,7 +65,7 @@ namespace TrtlBotSharp
             if (CoinPriceK.Count < 1)
             {
                 Log(0, "ARMSBot", "Error getting FCB");
-                return Task.TaskCompleted;
+                return Task.CompletedTask;
             }
 
             // Get current coin price - Raisex
@@ -73,7 +73,7 @@ namespace TrtlBotSharp
             if (CoinPriceR.Count < 1)
             {
                 Log(0, "ARMSBot", "Error getting Raisex");
-                return Task.TaskCompleted;
+                return Task.CompletedTask;
             }
             
             // Get current BTC price
@@ -81,7 +81,7 @@ namespace TrtlBotSharp
             if (BTCPrice.Count < 1)
             {
                 Log(0, "ARMSBot", "Error getting BTC");
-                return Task.TaskCompleted;
+                return Task.CompletedTask;
             }
 
             Log(0, "ARMSBot", "Setting New Cache values");            
