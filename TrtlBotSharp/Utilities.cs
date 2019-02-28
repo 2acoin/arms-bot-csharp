@@ -55,38 +55,34 @@ namespace TrtlBotSharp
             TimeSpan elapsedTime = presentTime.Subtract ( cachedTime );
             
             if (elapsedTime.Minutes < 15)
-                {
-                return;  // return if less than 15 minutes of cache time has passed
-                }
-
-            public async Task MarketsAsync([Remainder]string Remainder = "")
             {
-                    
-                // Get current coin price - FCB 
-                JObject CoinPriceK = Request.GET(TrtlBotSharp.marketEndpointK);
-                if (CoinPriceK.Count < 1)
-                {
-                    await ReplyAsync("Failed to connect to " + TrtlBotSharp.marketSourceK);
-                    return;
-                }
+              return;  // return if less than 15 minutes of cache time has passed
+            }
 
-                // Get current coin price - Raisex
-                JObject CoinPriceR = Request.GET(TrtlBotSharp.marketEndpointR);
-                if (CoinPriceR.Count < 1)
-                {
-                    await ReplyAsync("Failed to connect to " + TrtlBotSharp.marketSourceR);
-                    return;
-                }
-                
-                // Get current BTC price
-                JObject BTCPrice = Request.GET(TrtlBotSharp.marketBTCEndpoint);
-                if (BTCPrice.Count < 1)
-                {
-                    await ReplyAsync("Failed to connect to " + TrtlBotSharp.marketBTCEndpoint);
-                    return;
-                }
+            // Get current coin price - FCB 
+            JObject CoinPriceK = Request.GET(TrtlBotSharp.marketEndpointK);
+            if (CoinPriceK.Count < 1)
+            {
+                await TrtlBotSharp.ReplyAsync("Failed to connect to " + TrtlBotSharp.marketSourceK);
+                return;
+            }
+
+            // Get current coin price - Raisex
+            JObject CoinPriceR = Request.GET(TrtlBotSharp.marketEndpointR);
+            if (CoinPriceR.Count < 1)
+            {
+                await TrtlBotSharp.ReplyAsync("Failed to connect to " + TrtlBotSharp.marketSourceR);
+                return;
             }
             
+            // Get current BTC price
+            JObject BTCPrice = Request.GET(TrtlBotSharp.marketBTCEndpoint);
+            if (BTCPrice.Count < 1)
+            {
+                await TrtlBotSharp.ReplyAsync("Failed to connect to " + TrtlBotSharp.marketBTCEndpoint);
+                return;
+            }
+        
             // Cache the data we need
             string marketCacheNow = DateTime.Now.ToString("MM/dd/yyyy h:mm:ss tt");
             TrtlBotSharp.marketCacheArray[0] = marketCacheNow;

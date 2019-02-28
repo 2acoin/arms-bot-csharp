@@ -12,7 +12,7 @@ namespace TrtlBotSharp
         public async Task PriceAsync([Remainder]string Remainder = "")
         {
             // Begin building a response
-            await GetMarketCache();
+            await TrtlBotSharp.GetMarketCache();
             
             // FCB
             var Response = new EmbedBuilder();
@@ -41,8 +41,8 @@ namespace TrtlBotSharp
             Response.AddInlineField("Low", string.Format("{0} sats", Math.Round((decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[5]) * 100000000)));
             Response.AddInlineField("Current", string.Format("{0} sats", Math.Round((decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[7]) * 100000000)));
             Response.AddInlineField("High", string.Format("{0} sats", Math.Round((decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[6]) * 100000000)));
-            Response.AddInlineField(coinSymbol + "-USD", string.Format("${0:N5} USD", (decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[7]) * (decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[9])));
-            Response.AddInlineField("Volume BTC/USD", string.Format("{0:N}/{1:C}", ((decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[8]) * (decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[7])), ((decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[8]) * (decimal)marketCacheArray[7]) * (decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[9])));
+            Response.AddInlineField(TrtlBotSharp.coinSymbol + "-USD", string.Format("${0:N5} USD", (decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[7]) * (decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[9])));
+            Response.AddInlineField("Volume BTC/USD", string.Format("{0:N}/{1:C}", ((decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[8]) * (decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[7])), ((decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[8]) * (decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[7]) * (decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[9])));
             Response.AddInlineField("BTC-USD", string.Format("{0:C} USD", (decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[9])));
 			
 //            await TrtlBotSharp.GetMarketCache();
