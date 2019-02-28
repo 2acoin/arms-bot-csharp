@@ -63,36 +63,15 @@ namespace TrtlBotSharp
         [Command("mcap", RunMode = RunMode.Async)]
         public async Task MarketCapAsync([Remainder]string Remainder = "")
         {
-            // Get current coin price - FCB
-            JObject CoinPriceK = Request.GET(TrtlBotSharp.marketEndpointK);
-            if (CoinPriceK.Count < 1)
-            {
-                await ReplyAsync("Failed to connect to " + TrtlBotSharp.marketSourceK);
-                return;
-            }
-
-            // Get current coin price - Raisex
-            JObject CoinPriceR = Request.GET(TrtlBotSharp.marketEndpointR);
-            if (CoinPriceR.Count < 1)
-            {
-                await ReplyAsync("Failed to connect to " + TrtlBotSharp.marketSourceR);
-                return;
-            }
-            
-            // Get current BTC price
-            JObject BTCPrice = Request.GET(TrtlBotSharp.marketBTCEndpoint);
-            if (BTCPrice.Count < 1)
-            {
-                await ReplyAsync("Failed to connect to " + TrtlBotSharp.marketBTCEndpoint);
-                return;
-            }
+            // Begin building a response
+            await TrtlBotSharp.GetMarketCache();
 
             // Calculate a weighted avg price
-            decimal CoinPrice = ((decimal)CoinPriceK["data"]["last"] + (decimal)CoinPriceR["last"]) / 2;
+            decimal CoinPrice = ((decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[3])+ (decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[7])) / 2;
             
             // Begin building a response
             string Response = string.Format("{0}'s market cap is **{1:c}** USD", TrtlBotSharp.coinName,
-                ((decimal)CoinPrice * (decimal)BTCPrice["last"]) * TrtlBotSharp.GetSupply());
+                ((decimal)CoinPrice * (decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[9])) * TrtlBotSharp.GetSupply());
             // Send reply
             if (Context.Guild != null && TrtlBotSharp.marketDisallowedServers.Contains(Context.Guild.Id))
             {
