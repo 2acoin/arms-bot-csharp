@@ -11,41 +11,19 @@ namespace TrtlBotSharp
         [Command("price", RunMode = RunMode.Async)]
         public async Task PriceAsync([Remainder]string Remainder = "")
         {
-            // Get current coin price - FCB 
-            JObject CoinPriceK = Request.GET(TrtlBotSharp.marketEndpointK);
-            if (CoinPriceK.Count < 1)
-            {
-                await ReplyAsync("Failed to connect to " + TrtlBotSharp.marketSourceK);
-                return;
-            }
-
-            // Get current coin price - Raisex
-            JObject CoinPriceR = Request.GET(TrtlBotSharp.marketEndpointR);
-            if (CoinPriceR.Count < 1)
-            {
-                await ReplyAsync("Failed to connect to " + TrtlBotSharp.marketSourceR);
-                return;
-            }
-			
-            // Get current BTC price
-            JObject BTCPrice = Request.GET(TrtlBotSharp.marketBTCEndpoint);
-            if (BTCPrice.Count < 1)
-            {
-                await ReplyAsync("Failed to connect to " + TrtlBotSharp.marketBTCEndpoint);
-                return;
-            }
-			               
             // Begin building a response
+            await GetMarketCache();
+            
             // FCB
             var Response = new EmbedBuilder();
-            Response.WithTitle("Current Price of ARMS: " + TrtlBotSharp.marketSourceK);
-            Response.WithUrl(TrtlBotSharp.marketEndpointK);
-            Response.AddInlineField("Low", string.Format("{0} sats", Math.Round((decimal)CoinPriceK["data"]["low"] * 100000000)));
-            Response.AddInlineField("Current", string.Format("{0} sats", Math.Round((decimal)CoinPriceK["data"]["last"] * 100000000)));
-            Response.AddInlineField("High", string.Format("{0} sats", Math.Round((decimal)CoinPriceK["data"]["high"] * 100000000)));
-            Response.AddInlineField(TrtlBotSharp.coinSymbol + "-USD", string.Format("${0:N5} USD", (decimal)CoinPriceK["data"]["last"] * (decimal)BTCPrice["last"]));
-            Response.AddInlineField("Volume BTC/USD", string.Format("{0:N}/{1:C}", (decimal)CoinPriceK["data"]["volume"], (decimal)CoinPriceK["data"]["volume"] * (decimal)BTCPrice["last"]));
-            Response.AddInlineField("BTC-USD", string.Format("{0:C} USD", (decimal)BTCPrice["last"]));
+            Response.WithTitle("Current Price of ARMS: " + marketSourceK);
+            Response.WithUrl(marketEndpointK);
+            Response.AddInlineField("Low", string.Format("{0} sats", Math.Round((decimal)marketCacheArray[1] * 100000000)));
+            Response.AddInlineField("Current", string.Format("{0} sats", Math.Round((decimal)marketCacheArray[3] * 100000000)));
+            Response.AddInlineField("High", string.Format("{0} sats", Math.Round((decimal)marketCacheArray[2] * 100000000)));
+            Response.AddInlineField(coinSymbol + "-USD", string.Format("${0:N5} USD", (decimal)marketCacheArray[3] * (decimal)marketCacheArray[9]));
+            Response.AddInlineField("Volume BTC/USD", string.Format("{0:N}/{1:C}", (decimal)marketCacheArray[4], (decimal)marketCacheArray[4] * (decimal)marketCacheArray[9]));
+            Response.AddInlineField("BTC-USD", string.Format("{0:C} USD", (decimal)marketCacheArray[9]));
  
             // Send FCB reply
             if (Context.Guild != null && TrtlBotSharp.marketDisallowedServers.Contains(Context.Guild.Id))
@@ -58,16 +36,16 @@ namespace TrtlBotSharp
  
             // Raisex 
             Response = new EmbedBuilder();
-            Response.WithTitle("Current Price of ARMS: " + TrtlBotSharp.marketSourceR);
-            Response.WithUrl(TrtlBotSharp.marketEndpointR);
-            Response.AddInlineField("Low", string.Format("{0} sats", Math.Round((decimal)CoinPriceR["best_bid"] * 100000000)));
-            Response.AddInlineField("Current", string.Format("{0} sats", Math.Round((decimal)CoinPriceR["last"] * 100000000)));
-            Response.AddInlineField("High", string.Format("{0} sats", Math.Round((decimal)CoinPriceR["best_ask"] * 100000000)));
-            Response.AddInlineField(TrtlBotSharp.coinSymbol + "-USD", string.Format("${0:N5} USD", (decimal)CoinPriceR["last"] * (decimal)BTCPrice["last"]));
-            Response.AddInlineField("Volume BTC/USD", string.Format("{0:N}/{1:C}", ((decimal)CoinPriceR["volume"] * (decimal)CoinPriceR["last"]), ((decimal)CoinPriceR["volume"] * (decimal)CoinPriceR["last"]) * (decimal)BTCPrice["last"]));
-            Response.AddInlineField("BTC-USD", string.Format("{0:C} USD", (decimal)BTCPrice["last"]));
+            Response.WithTitle("Current Price of ARMS: " + marketSourceR);
+            Response.WithUrl(marketEndpointR);
+            Response.AddInlineField("Low", string.Format("{0} sats", Math.Round((decimal)marketCacheArray[5] * 100000000)));
+            Response.AddInlineField("Current", string.Format("{0} sats", Math.Round((decimal)marketCacheArray[7] * 100000000)));
+            Response.AddInlineField("High", string.Format("{0} sats", Math.Round((decimal)marketCacheArray[6] * 100000000)));
+            Response.AddInlineField(coinSymbol + "-USD", string.Format("${0:N5} USD", (decimal)marketCacheArray[7] * (decimal)marketCacheArray[9]));
+            Response.AddInlineField("Volume BTC/USD", string.Format("{0:N}/{1:C}", ((decimal)marketCacheArray[8] * (decimal)marketCacheArray[7]), ((decimal)marketCacheArray[8] * (decimal)marketCacheArray[7]) * (decimal)BTCPrice["last"]));
+            Response.AddInlineField("BTC-USD", string.Format("{0:C} USD", (decimal)marketCacheArray[9]));
 			
-            await TrtlBotSharp.GetMarketCache();
+//            await TrtlBotSharp.GetMarketCache();
             DateTime cachedDate = DateTime.Parse(TrtlBotSharp.marketCacheArray[0]);
             Response.AddInlineField("Data as of", string.Format("{0}", cachedDate));
 

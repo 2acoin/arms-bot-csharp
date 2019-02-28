@@ -48,8 +48,53 @@ namespace TrtlBotSharp
         // Sets Market Rate Caches
         public static Task GetMarketCache()
         {
-            string marketCacheNow = DateTime.Now.ToString("MM/dd/yyyy h:mm tt");
-            marketCacheArray[0] =  marketCacheNow;
+        
+            //Check the cache time
+            DateTime cachedTime = DateTime.Parse(marketCacheArray[0]);
+            DateTime presentTime = DateTime.Now;
+            TimeSpan elapsedTime = presentTime.Subtract ( cachedTime );
+            
+            if ((elapsedTime.Minutes < 15)
+                {
+                return;  // return if less than 15 minutes of cache time has passed
+                }
+            
+            // Get current coin price - FCB 
+            JObject CoinPriceK = Request.GET(marketEndpointK);
+            if (CoinPriceK.Count < 1)
+            {
+                await ReplyAsync("Failed to connect to " + marketSourceK);
+                return;
+            }
+
+            // Get current coin price - Raisex
+            JObject CoinPriceR = Request.GET(marketEndpointR);
+            if (CoinPriceR.Count < 1)
+            {
+                await ReplyAsync("Failed to connect to " + marketSourceR);
+                return;
+            }
+			
+            // Get current BTC price
+            JObject BTCPrice = Request.GET(marketBTCEndpoint);
+            if (BTCPrice.Count < 1)
+            {
+                await ReplyAsync("Failed to connect to " + marketBTCEndpoint);
+                return;
+            }
+
+            // Cache the data we need
+            string marketCacheNow = DateTime.Now.ToString("MM/dd/yyyy h:mm:ss tt");
+            marketCacheArray[0] = marketCacheNow;
+            marketCacheArray[1] = CoinPriceK["data"]["low"];
+            marketCacheArray[2] = CoinPriceK["data"]["high"];
+            marketCacheArray[3] = CoinPriceK["data"]["last"];
+            marketCacheArray[4] = CoinPriceK["data"]["volume"];
+            marketCacheArray[5] = CoinPriceR["best_bid"];           // Low
+            marketCacheArray[6] = CoinPriceR["best_ask"];           // High
+            marketCacheArray[7] = CoinPriceR["last"];               // Last
+            marketCacheArray[8] = CoinPriceR["volume"];
+            marketCacheArray[9] = BTCPrice["last"];                 // BTC Price
             return Task.CompletedTask;
         }
         
