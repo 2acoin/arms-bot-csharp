@@ -54,47 +54,51 @@ namespace TrtlBotSharp
             DateTime presentTime = DateTime.Now;
             TimeSpan elapsedTime = presentTime.Subtract ( cachedTime );
             
-            if ((elapsedTime.Minutes < 15)
+            if (elapsedTime.Minutes < 15)
                 {
                 return;  // return if less than 15 minutes of cache time has passed
                 }
+
+            public async Task MarketsAsync([Remainder]string Remainder = "")
+            {
+                    
+                // Get current coin price - FCB 
+                JObject CoinPriceK = Request.GET(TrtlBotSharp.marketEndpointK);
+                if (CoinPriceK.Count < 1)
+                {
+                    await ReplyAsync("Failed to connect to " + TrtlBotSharp.marketSourceK);
+                    return;
+                }
+
+                // Get current coin price - Raisex
+                JObject CoinPriceR = Request.GET(TrtlBotSharp.marketEndpointR);
+                if (CoinPriceR.Count < 1)
+                {
+                    await ReplyAsync("Failed to connect to " + TrtlBotSharp.marketSourceR);
+                    return;
+                }
+                
+                // Get current BTC price
+                JObject BTCPrice = Request.GET(TrtlBotSharp.marketBTCEndpoint);
+                if (BTCPrice.Count < 1)
+                {
+                    await ReplyAsync("Failed to connect to " + TrtlBotSharp.marketBTCEndpoint);
+                    return;
+                }
+            }
             
-            // Get current coin price - FCB 
-            JObject CoinPriceK = Request.GET(marketEndpointK);
-            if (CoinPriceK.Count < 1)
-            {
-                await ReplyAsync("Failed to connect to " + marketSourceK);
-                return;
-            }
-
-            // Get current coin price - Raisex
-            JObject CoinPriceR = Request.GET(marketEndpointR);
-            if (CoinPriceR.Count < 1)
-            {
-                await ReplyAsync("Failed to connect to " + marketSourceR);
-                return;
-            }
-			
-            // Get current BTC price
-            JObject BTCPrice = Request.GET(marketBTCEndpoint);
-            if (BTCPrice.Count < 1)
-            {
-                await ReplyAsync("Failed to connect to " + marketBTCEndpoint);
-                return;
-            }
-
             // Cache the data we need
             string marketCacheNow = DateTime.Now.ToString("MM/dd/yyyy h:mm:ss tt");
-            marketCacheArray[0] = marketCacheNow;
-            marketCacheArray[1] = CoinPriceK["data"]["low"];
-            marketCacheArray[2] = CoinPriceK["data"]["high"];
-            marketCacheArray[3] = CoinPriceK["data"]["last"];
-            marketCacheArray[4] = CoinPriceK["data"]["volume"];
-            marketCacheArray[5] = CoinPriceR["best_bid"];           // Low
-            marketCacheArray[6] = CoinPriceR["best_ask"];           // High
-            marketCacheArray[7] = CoinPriceR["last"];               // Last
-            marketCacheArray[8] = CoinPriceR["volume"];
-            marketCacheArray[9] = BTCPrice["last"];                 // BTC Price
+            TrtlBotSharp.marketCacheArray[0] = marketCacheNow;
+            TrtlBotSharp.marketCacheArray[1] = CoinPriceK["data"]["low"];
+            TrtlBotSharp.marketCacheArray[2] = CoinPriceK["data"]["high"];
+            TrtlBotSharp.marketCacheArray[3] = CoinPriceK["data"]["last"];
+            TrtlBotSharp.marketCacheArray[4] = CoinPriceK["data"]["volume"];
+            TrtlBotSharp.marketCacheArray[5] = CoinPriceR["best_bid"];           // Low
+            TrtlBotSharp.marketCacheArray[6] = CoinPriceR["best_ask"];           // High
+            TrtlBotSharp.marketCacheArray[7] = CoinPriceR["last"];               // Last
+            TrtlBotSharp.marketCacheArray[8] = CoinPriceR["volume"];
+            TrtlBotSharp.marketCacheArray[9] = BTCPrice["last"];                 // BTC Price
             return Task.CompletedTask;
         }
         
