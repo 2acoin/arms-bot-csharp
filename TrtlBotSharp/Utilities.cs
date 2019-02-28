@@ -56,45 +56,47 @@ namespace TrtlBotSharp
             
             if (elapsedTime.Minutes < 15)
             {
-              return;  // return if less than 15 minutes of cache time has passed
+                Log(0, "ARMSBot", "Elapsed time less than 15 Minutes - " + elapsed.Minutes);
+                return Task.TaskCompleted;  // return if less than 15 minutes of cache time has passed
             }
 
             // Get current coin price - FCB 
             JObject CoinPriceK = Request.GET(TrtlBotSharp.marketEndpointK);
             if (CoinPriceK.Count < 1)
             {
-                await TrtlBotSharp.ReplyAsync("Failed to connect to " + TrtlBotSharp.marketSourceK);
-                return;
+                Log(0, "ARMSBot", "Error getting FCB");
+                return Task.TaskCompleted;
             }
 
             // Get current coin price - Raisex
             JObject CoinPriceR = Request.GET(TrtlBotSharp.marketEndpointR);
             if (CoinPriceR.Count < 1)
             {
-                await TrtlBotSharp.ReplyAsync("Failed to connect to " + TrtlBotSharp.marketSourceR);
-                return;
+                Log(0, "ARMSBot", "Error getting Raisex");
+                return Task.TaskCompleted;
             }
             
             // Get current BTC price
             JObject BTCPrice = Request.GET(TrtlBotSharp.marketBTCEndpoint);
             if (BTCPrice.Count < 1)
             {
-                await TrtlBotSharp.ReplyAsync("Failed to connect to " + TrtlBotSharp.marketBTCEndpoint);
-                return;
+                Log(0, "ARMSBot", "Error getting BTC");
+                return Task.TaskCompleted;
             }
-        
+
+            Log(0, "ARMSBot", "Setting New Cache values");            
             // Cache the data we need
             string marketCacheNow = DateTime.Now.ToString("MM/dd/yyyy h:mm:ss tt");
             TrtlBotSharp.marketCacheArray[0] = marketCacheNow;
-            TrtlBotSharp.marketCacheArray[1] = CoinPriceK["data"]["low"];
-            TrtlBotSharp.marketCacheArray[2] = CoinPriceK["data"]["high"];
-            TrtlBotSharp.marketCacheArray[3] = CoinPriceK["data"]["last"];
-            TrtlBotSharp.marketCacheArray[4] = CoinPriceK["data"]["volume"];
-            TrtlBotSharp.marketCacheArray[5] = CoinPriceR["best_bid"];           // Low
-            TrtlBotSharp.marketCacheArray[6] = CoinPriceR["best_ask"];           // High
-            TrtlBotSharp.marketCacheArray[7] = CoinPriceR["last"];               // Last
-            TrtlBotSharp.marketCacheArray[8] = CoinPriceR["volume"];
-            TrtlBotSharp.marketCacheArray[9] = BTCPrice["last"];                 // BTC Price
+            TrtlBotSharp.marketCacheArray[1] = (string)CoinPriceK["data"]["low"];
+            TrtlBotSharp.marketCacheArray[2] = (string)CoinPriceK["data"]["high"];
+            TrtlBotSharp.marketCacheArray[3] = (string)CoinPriceK["data"]["last"];
+            TrtlBotSharp.marketCacheArray[4] = (string)CoinPriceK["data"]["volume"];
+            TrtlBotSharp.marketCacheArray[5] = (string)CoinPriceR["best_bid"];           // Low
+            TrtlBotSharp.marketCacheArray[6] = (string)CoinPriceR["best_ask"];           // High
+            TrtlBotSharp.marketCacheArray[7] = (string)CoinPriceR["last"];               // Last
+            TrtlBotSharp.marketCacheArray[8] = (string)CoinPriceR["volume"];
+            TrtlBotSharp.marketCacheArray[9] = (string)BTCPrice["last"];                 // BTC Price
             return Task.CompletedTask;
         }
         
