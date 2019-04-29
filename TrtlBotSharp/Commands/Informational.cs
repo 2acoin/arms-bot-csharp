@@ -152,7 +152,8 @@ namespace TrtlBotSharp
         public async Task FaucetAsync([Remainder]string Remainder = "")
         {
             // Get faucet balance
-            JObject FaucetBalance = Request.GET(TrtlBotSharp.faucetEndpoint);
+//            JObject FaucetBalance = Request.GET(TrtlBotSharp.faucetEndpoint);
+            JObject FaucetBalance = Request.RPC(TrtlBotSharp.faucetHost, "getbalance");
             if (FaucetBalance.Count < 1)
             {
                 await ReplyAsync("Failed to connect to faucet");
