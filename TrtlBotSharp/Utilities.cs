@@ -73,7 +73,7 @@ namespace TrtlBotSharp
             if (CoinPriceR.Count < 1)
             {
                 Log(0, "ARMSBot", "Error getting Raisex");
-                return Task.CompletedTask;
+//                return Task.CompletedTask;
             }
             
             // Get current BTC price
