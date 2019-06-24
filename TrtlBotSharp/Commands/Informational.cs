@@ -153,7 +153,8 @@ namespace TrtlBotSharp
         {
             // Get faucet balance
 //            JObject FaucetBalance = Request.GET(TrtlBotSharp.faucetEndpoint);
-            JObject FaucetBalance = Request.RPC("45.63.35.51",17760,"getBalance");
+
+            JObject FaucetBalance = Request.RPC(TrtlBotSharp.faucetHost,TrtlBotSharp.faucetPort, "getBalance");
             if (FaucetBalance.Count < 1)
             {
                 await ReplyAsync("Failed to connect to faucet");
@@ -163,7 +164,7 @@ namespace TrtlBotSharp
             // Begin building a response
             var Response = new EmbedBuilder();
             Response.WithTitle(string.Format("This faucet has {0:N} {1} left", (decimal)FaucetBalance["availableBalance"] / 100000000, TrtlBotSharp.coinSymbol));
-//            Response.WithUrl(TrtlBotSharp.faucetHost);
+            // Response.WithUrl(TrtlBotSharp.faucetHost);
             Response.Description = "```Donations:\n" + TrtlBotSharp.faucetAddress + "```\n";
 
             // Send reply
