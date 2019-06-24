@@ -263,5 +263,5 @@ __pycache__/
 # 2acoin added directories
 Database/
 config.json
-.TrtlBotSharp/config.json
+TrtlBotSharp/config.json
 myConfig/

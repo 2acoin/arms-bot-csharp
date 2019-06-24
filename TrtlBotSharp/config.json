@@ -20,7 +20,7 @@
     ":99:": 99,
     "🍆": 1234.56
   },
-  "faucetHost": "https://faucet.2acoin.org/",
+  "faucetHost": "faucet.2acoin.org",
   "faucetPort": 17760,
   "faucetEndpoint": "https://faucet.2acoin.org/balance",
   "faucetAddress": "gunsAwiL53dLvBQ9DKB6DD7svVXkyUPJ4BqHEGxooqL8FRb9Xti8CaCQWY8gCSkCCe1d77eQbyn1S7gsXYjQHFBEADRfG6vSVh",
