@@ -32,6 +32,7 @@ namespace TrtlBotSharp
                 tipJoinReact = (string)Config["tipJoinReact"];
                 tipCustomReacts = Config["tipCustomReacts"].ToObject<Dictionary<string, decimal>>();
                 faucetHost = (string)Config["faucetHost"];
+                faucetPort = (int)Config["faucetPort"];
                 faucetEndpoint = (string)Config["faucetEndpoint"];
                 faucetAddress = (string)Config["faucetAddress"];
                 marketSourceK = (string)Config["marketSourceK"];
@@ -71,6 +72,7 @@ namespace TrtlBotSharp
                 ["tipJoinReact"] = tipJoinReact,
                 ["tipCustomReacts"] = JToken.FromObject(tipCustomReacts),
                 ["faucetHost"] = faucetHost,
+                ["faucetPort"] = faucetPort,
                 ["faucetEndpoint"] = faucetEndpoint,
                 ["faucetAddress"] = faucetAddress,
                 ["marketSourceK"] = marketSourceK,

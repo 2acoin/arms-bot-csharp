@@ -56,7 +56,7 @@ namespace TrtlBotSharp
             
             if (elapsedTime.Minutes < 15)
             {
-                Log(0, "ARMSBot", "Elapsed time less than 15 Minutes - " + elapsedTime.Minutes);
+                Log(0, "ARMSBot", "Elapsed time less than 15 Minutes - " + elapsedTime.Minutes + " | Last Cache Time = " + string.Format("{0}", cachedTime));
                 return Task.CompletedTask;  // return if less than 15 minutes of cache time has passed
             }
 
@@ -69,12 +69,12 @@ namespace TrtlBotSharp
             }
 
             // Get current coin price - Raisex
-            JObject CoinPriceR = Request.GET(TrtlBotSharp.marketEndpointR);
-            if (CoinPriceR.Count < 1)
-            {
-                Log(0, "ARMSBot", "Error getting Raisex");
-//                return Task.CompletedTask;
-            }
+//            JObject CoinPriceR = Request.GET(TrtlBotSharp.marketEndpointR);
+//            if (CoinPriceR.Count < 1)
+//            {
+//                Log(0, "ARMSBot", "Error getting Raisex");
+// //                return Task.CompletedTask;
+//            }
             
             // Get current BTC price
             JObject BTCPrice = Request.GET(TrtlBotSharp.marketBTCEndpoint);
@@ -92,10 +92,10 @@ namespace TrtlBotSharp
             TrtlBotSharp.marketCacheArray[2] = (string)CoinPriceK["data"]["high"];
             TrtlBotSharp.marketCacheArray[3] = (string)CoinPriceK["data"]["last"];
             TrtlBotSharp.marketCacheArray[4] = (string)CoinPriceK["data"]["volume"];
-            TrtlBotSharp.marketCacheArray[5] = (string)CoinPriceR["best_bid"];           // Low
-            TrtlBotSharp.marketCacheArray[6] = (string)CoinPriceR["best_ask"];           // High
-            TrtlBotSharp.marketCacheArray[7] = (string)CoinPriceR["last"];               // Last
-            TrtlBotSharp.marketCacheArray[8] = (string)CoinPriceR["volume"];
+//            TrtlBotSharp.marketCacheArray[5] = (string)CoinPriceR["best_bid"];           // Low
+//            TrtlBotSharp.marketCacheArray[6] = (string)CoinPriceR["best_ask"];           // High
+//            TrtlBotSharp.marketCacheArray[7] = (string)CoinPriceR["last"];               // Last
+//            TrtlBotSharp.marketCacheArray[8] = (string)CoinPriceR["volume"];
             TrtlBotSharp.marketCacheArray[9] = (string)BTCPrice["last"];                 // BTC Price
             return Task.CompletedTask;
         }

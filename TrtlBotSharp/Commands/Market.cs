@@ -24,6 +24,8 @@ namespace TrtlBotSharp
             Response.AddInlineField(TrtlBotSharp.coinSymbol + "-USD", string.Format("${0:N5} USD", (decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[3]) * (decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[9])));
             Response.AddInlineField("Volume BTC/USD", string.Format("{0:N}/{1:C}", (decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[4]), (decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[4]) * (decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[9])));
             Response.AddInlineField("BTC-USD", string.Format("{0:C} USD", (decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[9])));
+            DateTime cachedDate = DateTime.Parse(TrtlBotSharp.marketCacheArray[0]);
+            Response.AddInlineField("Data as of", string.Format("{0}", cachedDate));
  
             // Send FCB reply
             if (Context.Guild != null && TrtlBotSharp.marketDisallowedServers.Contains(Context.Guild.Id))
@@ -35,29 +37,27 @@ namespace TrtlBotSharp
             else await ReplyAsync("", false, Response);
  
             // Raisex 
-            Response = new EmbedBuilder();
-            Response.WithTitle("Current Price of ARMS: " + TrtlBotSharp.marketSourceR);
-            Response.WithUrl(TrtlBotSharp.marketEndpointR);
-            Response.AddInlineField("Low", string.Format("{0} sats", Math.Round((decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[5]) * 100000000)));
-            Response.AddInlineField("Current", string.Format("{0} sats", Math.Round((decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[7]) * 100000000)));
-            Response.AddInlineField("High", string.Format("{0} sats", Math.Round((decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[6]) * 100000000)));
-            Response.AddInlineField(TrtlBotSharp.coinSymbol + "-USD", string.Format("${0:N5} USD", (decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[7]) * (decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[9])));
-            Response.AddInlineField("Volume BTC/USD", string.Format("{0:N}/{1:C}", ((decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[8]) * (decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[7])), ((decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[8]) * (decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[7])) * (decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[9])));
-            Response.AddInlineField("BTC-USD", string.Format("{0:C} USD", (decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[9])));
-			
-//            await TrtlBotSharp.GetMarketCache();
-            DateTime cachedDate = DateTime.Parse(TrtlBotSharp.marketCacheArray[0]);
-            Response.AddInlineField("Data as of", string.Format("{0}", cachedDate));
+//            Response = new EmbedBuilder();
+//            Response.WithTitle("Current Price of ARMS: " + TrtlBotSharp.marketSourceR);
+//            Response.WithUrl(TrtlBotSharp.marketEndpointR);
+//            Response.AddInlineField("Low", string.Format("{0} sats", Math.Round((decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[5]) * 100000000)));
+//            Response.AddInlineField("Current", string.Format("{0} sats", Math.Round((decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[7]) * 100000000)));
+//            Response.AddInlineField("High", string.Format("{0} sats", Math.Round((decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[6]) * 100000000)));
+//            Response.AddInlineField(TrtlBotSharp.coinSymbol + "-USD", string.Format("${0:N5} USD", (decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[7]) * (decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[9])));
+//            Response.AddInlineField("Volume BTC/USD", string.Format("{0:N}/{1:C}", ((decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[8]) * (decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[7])), ((decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[8]) * (decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[7])) * (decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[9])));
+//            Response.AddInlineField("BTC-USD", string.Format("{0:C} USD", (decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[9])));
+//            DateTime cachedDate = DateTime.Parse(TrtlBotSharp.marketCacheArray[0]);
+//            Response.AddInlineField("Data as of", string.Format("{0}", cachedDate));
 
 
             // Send Raisex reply
-            if (Context.Guild != null && TrtlBotSharp.marketDisallowedServers.Contains(Context.Guild.Id))
-            {
-                try { await Context.Message.DeleteAsync(); }
-                catch { }
-                await Context.Message.Author.SendMessageAsync("", false, Response);
-            }
-            else await ReplyAsync("", false, Response);
+//            if (Context.Guild != null && TrtlBotSharp.marketDisallowedServers.Contains(Context.Guild.Id))
+//            {
+//                try { await Context.Message.DeleteAsync(); }
+//                catch { }
+//                await Context.Message.Author.SendMessageAsync("", false, Response);
+//            }
+//            else await ReplyAsync("", false, Response);
         }
         
         [Command("mcap", RunMode = RunMode.Async)]

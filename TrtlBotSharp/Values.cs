@@ -68,6 +68,8 @@ namespace TrtlBotSharp
             faucetHost = "https://faucet.2acoin.org/",
             faucetEndpoint = "https://faucet.2acoin.org/balance",
             faucetAddress = "gunsAwiL53dLvBQ9DKB6DD7svVXkyUPJ4BqHEGxooqL8FRb9Xti8CaCQWY8gCSkCCe1d77eQbyn1S7gsXYjQHFBEADRfG6vSVh";
+        public static int
+            faucetPort = 17760;
 
         // Market Variables
         public static string

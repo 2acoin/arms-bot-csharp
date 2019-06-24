@@ -153,8 +153,7 @@ namespace TrtlBotSharp
         {
             // Get faucet balance
 //            JObject FaucetBalance = Request.GET(TrtlBotSharp.faucetEndpoint);
-
-            JObject FaucetBalance = Request.RPC(TrtlBotSharp.faucetHost,TrtlBotSharp.faucetPort, "getBalance");
+            JObject FaucetBalance = Request.RPC(TrtlBotSharp.faucetHost, "getBalance");
             if (FaucetBalance.Count < 1)
             {
                 await ReplyAsync("Failed to connect to faucet");
