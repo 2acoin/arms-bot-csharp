@@ -67,7 +67,8 @@ namespace TrtlBotSharp
             await TrtlBotSharp.GetMarketCache();
 
             // Calculate a weighted avg price
-            decimal CoinPrice = ((decimal)Convert.ToDecimal(TrtlBotSharp.marketCacheArray[3]) + (decimal)Convert.ToDecimal(TrtlBotSharp.marketCacheArray[7])) / 2;
+//            decimal CoinPrice = ((decimal)Convert.ToDecimal(TrtlBotSharp.marketCacheArray[3]) + (decimal)Convert.ToDecimal(TrtlBotSharp.marketCacheArray[7])) / 2;
+            decimal CoinPrice = (decimal)Convert.ToDecimal(TrtlBotSharp.marketCacheArray[3]);
             
             // Begin building a response
             string Response = string.Format("{0}'s market cap is **{1:c}** USD", TrtlBotSharp.coinName,
