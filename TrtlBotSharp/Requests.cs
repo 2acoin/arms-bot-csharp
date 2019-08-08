@@ -57,6 +57,20 @@ namespace TrtlBotSharp
             return Result;
         }
 
+        // Create Local webclient with timeout option
+        private class WebClient : System.Net.WebClient
+        {
+            public int Timeout { get; set; }
+
+            protected override WebRequest GetWebRequest(Uri uri)
+            {
+                WebRequest lWebRequest = base.GetWebRequest(uri);
+                lWebRequest.Timeout = Timeout;
+                ((HttpWebRequest)lWebRequest).ReadWriteTimeout = Timeout;
+                return lWebRequest;
+            }
+        }
+
         // Gets page source
         public static JObject GET(string Host)
         {
@@ -68,6 +82,7 @@ namespace TrtlBotSharp
                 {
                     // Add user-agent headers
                     client.Headers.Add ("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)");
+                    client.Timeout = 10 * 60 * 1000;  // timeout after 10 seconds
                     // Get response
                     Result = JObject.Parse(client.DownloadString(Host));
                 }
