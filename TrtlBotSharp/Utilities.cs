@@ -56,7 +56,7 @@ namespace TrtlBotSharp
             
             if (elapsedTimeA.Minutes < 15)
             {
-                Log(0, "ARMSBot", "{0} - Elapsed time less than 15 Minutes - {1} | Last Cache Time = {2}", TrtlBotSharp.marketSourceA, elapsedTimeA.Minutes, cachedTimeA));
+                Log(0, "ARMSBot", "{0} - Elapsed time less than 15 Minutes - {1} | Last Cache Time = {2}", TrtlBotSharp.marketSourceA, elapsedTimeA.Minutes, cachedTimeA);
             }
             else
             {
@@ -87,7 +87,7 @@ namespace TrtlBotSharp
             
             if (elapsedTimeB.Minutes < 15)
             {
-                Log(0, "ARMSBot", "{0} - Elapsed time less than 15 Minutes - {1} | Last Cache Time = {2}", TrtlBotSharp.marketSourceB, elapsedTimeB.Minutes, cachedTimeB));
+                Log(0, "ARMSBot", "{0} - Elapsed time less than 15 Minutes - {1} | Last Cache Time = {2}", TrtlBotSharp.marketSourceB, elapsedTimeB.Minutes, cachedTimeB);
             }
             else
             {

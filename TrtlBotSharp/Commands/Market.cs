@@ -15,7 +15,7 @@ namespace TrtlBotSharp
             await TrtlBotSharp.GetMarketCache();
             
             // FCB
-            if TrtlBotSharp.marketCacheArray[0] = "01/01/2019 12:00:00 PM"
+            if (TrtlBotSharp.marketCacheArray[0] = "01/01/2019 12:00:00 PM")
             {
                 var Response = new EmbedBuilder();
                 Response.WithTitle("Current Price of ARMS: " + TrtlBotSharp.marketSourceA);
@@ -46,7 +46,7 @@ namespace TrtlBotSharp
             else await ReplyAsync("", false, Response);
             
             // FinexBox 
-            if TrtlBotSharp.marketCacheArray[5] = "01/01/2019 12:00:00 PM"
+            if (TrtlBotSharp.marketCacheArray[5] = "01/01/2019 12:00:00 PM")
             {
                 var Response = new EmbedBuilder();
                 Response.WithTitle("Current Price of ARMS: " + TrtlBotSharp.marketSourceB);
