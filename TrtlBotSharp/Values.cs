@@ -81,7 +81,7 @@ namespace TrtlBotSharp
         
         // Market Cache 
         public static string[]
-            marketCacheArray = { "01/01/2019 12:00:00 PM", "ck-low", "ck-high", "ck-last", "ck-vol", "cr-low", "cr-high", "cr-last", "cr-average", "cr-vol", "btc-price" };
+            marketCacheArray = { "01/01/2019 12:00:00 PM", "ca-low", "ca-high", "ca-last", "ca-vol", "01/01/2019 12:00:00 PM", "cb-low", "cb-high", "cb-last", "cb-average", "cb-vol", "btc-price" };
 
         // Daemon Variables
         public static string

@@ -82,14 +82,14 @@ namespace TrtlBotSharp
                 {
                     // Add user-agent headers
                     client.Headers.Add ("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)");
-                    client.Timeout = 10 * 60 * 1000;  // timeout after 10 seconds
+                    client.Timeout = 30 * 1000;  // timeout after 30 seconds
                     // Get response
                     Result = JObject.Parse(client.DownloadString(Host));
                 }
             }
-            catch
+            catch (Exception e)
             {
-                TrtlBotSharp.Log(2, "ARMSBot", "Failed while fetching data from host {0}", Host);
+                TrtlBotSharp.Log(2, "ARMSBot", "Failed while fetching data from host {0}: {1}", Host, e.Message);
             }
             return Result;
         }

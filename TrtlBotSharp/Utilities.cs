@@ -49,31 +49,67 @@ namespace TrtlBotSharp
         public static Task GetMarketCache()
         {
         
-            //Check the cache time
-            DateTime cachedTime = DateTime.Parse(marketCacheArray[0]);
-            DateTime presentTime = DateTime.Now;
-            TimeSpan elapsedTime = presentTime.Subtract ( cachedTime );
+            //Check the cache time for Exchange A (FCB)
+            DateTime cachedTimeA = DateTime.Parse(marketCacheArray[0]);
+            DateTime presentTimeA = DateTime.Now;
+            TimeSpan elapsedTimeA = presentTimeA.Subtract ( cachedTimeA );
             
-            if (elapsedTime.Minutes < 15)
+            if (elapsedTimeA.Minutes < 15)
             {
-                Log(0, "ARMSBot", "Elapsed time less than 15 Minutes - " + elapsedTime.Minutes + " | Last Cache Time = " + string.Format("{0}", cachedTime));
-                return Task.CompletedTask;  // return if less than 15 minutes of cache time has passed
+                Log(0, "ARMSBot", "{0} - Elapsed time less than 15 Minutes - {1} | Last Cache Time = {2}", TrtlBotSharp.marketSourceA, elapsedTimeA.Minutes, cachedTimeA));
+            }
+            else
+            {
+                // Get current coin price - Exchange A (FCB) 
+                JObject CoinPriceA = Request.GET(TrtlBotSharp.marketEndpointA);
+                if (CoinPriceA.Count < 1)
+                {
+                    Log(0, "ARMSBot", "Error getting {0} exchange information", TrtlBotSharp.marketSourceA);
+                    TrtlBotSharp.marketCacheArray[0] = "01/01/2019 12:00:00 PM";
+                }
+                else
+                {
+                    // Build the cache for this exchange (A)
+                    Log(0, "ARMSBot", "Setting New Cache values for {0}", TrtlBotSharp.marketSourceA);            
+                    string marketCacheNowA = DateTime.Now.ToString("MM/dd/yyyy h:mm:ss tt");
+                    TrtlBotSharp.marketCacheArray[0] = marketCacheNowA;
+                    TrtlBotSharp.marketCacheArray[1] = (string)CoinPriceA["data"]["low"];
+                    TrtlBotSharp.marketCacheArray[2] = (string)CoinPriceA["data"]["high"];
+                    TrtlBotSharp.marketCacheArray[3] = (string)CoinPriceA["data"]["last"];
+                    TrtlBotSharp.marketCacheArray[4] = (string)CoinPriceA["data"]["volume"];                
+                }
             }
 
-            // Get current coin price - 1st Exchange (FCB) 
-            JObject CoinPriceA = Request.GET(TrtlBotSharp.marketEndpointA);
-            if (CoinPriceA.Count < 1)
+            //Check the cache time for Exchange B (FinexBox)
+            DateTime cachedTimeB = DateTime.Parse(marketCacheArray[5]);
+            DateTime presentTimeB = DateTime.Now;
+            TimeSpan elapsedTimeB = presentTimeB.Subtract ( cachedTimeB );
+            
+            if (elapsedTimeB.Minutes < 15)
             {
-                Log(0, "ARMSBot", "Error getting FCB");
-                return Task.CompletedTask;
+                Log(0, "ARMSBot", "{0} - Elapsed time less than 15 Minutes - {1} | Last Cache Time = {2}", TrtlBotSharp.marketSourceB, elapsedTimeB.Minutes, cachedTimeB));
             }
-
-            // Get current coin price - 2nd Exchange (FinexBox
-            JObject CoinPriceB = Request.GET(TrtlBotSharp.marketEndpointB);
-            if (CoinPriceB.Count < 1)
+            else
             {
-                Log(0, "ARMSBot", "Error getting FinexBox");
-                return Task.CompletedTask;
+                // Get current coin price - Exchange B (FinexBox) 
+                JObject CoinPriceB = Request.GET(TrtlBotSharp.marketEndpointB);
+                if (CoinPriceB.Count < 1)
+                {
+                    Log(0, "ARMSBot", "Error getting {0} exchange information", TrtlBotSharp.marketSourceB);
+                    TrtlBotSharp.marketCacheArray[5] = "01/01/2019 12:00:00 PM";                    
+                }
+                else
+                {
+                    // Build the cache for this exchange (B)
+                    Log(0, "ARMSBot", "Setting New Cache values for {0}", TrtlBotSharp.marketSourceB);
+                    string marketCacheNowB = DateTime.Now.ToString("MM/dd/yyyy h:mm:ss tt");
+                    TrtlBotSharp.marketCacheArray[5] = marketCacheNowB;
+                    TrtlBotSharp.marketCacheArray[6] = (string)CoinPriceB["result"]["low"];
+                    TrtlBotSharp.marketCacheArray[7] = (string)CoinPriceB["result"]["high"];
+                    TrtlBotSharp.marketCacheArray[8] = (string)CoinPriceB["result"]["price"];      // Last
+                    TrtlBotSharp.marketCacheArray[9] = (string)CoinPriceB["result"]["average"];    // for volume calc
+                    TrtlBotSharp.marketCacheArray[10] = (string)CoinPriceB["result"]["volume"];     //stated in arms
+                }
             }
             
             // Get current BTC price
@@ -83,22 +119,11 @@ namespace TrtlBotSharp
                 Log(0, "ARMSBot", "Error getting BTC prices");
                 return Task.CompletedTask;
             }
-
-            Log(0, "ARMSBot", "Setting New Cache values");            
-            // Cache the data we need
-            string marketCacheNow = DateTime.Now.ToString("MM/dd/yyyy h:mm:ss tt");
-            TrtlBotSharp.marketCacheArray[0] = marketCacheNow;
-            TrtlBotSharp.marketCacheArray[1] = (string)CoinPriceA["data"]["low"];
-            TrtlBotSharp.marketCacheArray[2] = (string)CoinPriceA["data"]["high"];
-            TrtlBotSharp.marketCacheArray[3] = (string)CoinPriceA["data"]["last"];
-            TrtlBotSharp.marketCacheArray[4] = (string)CoinPriceA["data"]["volume"];
-            TrtlBotSharp.marketCacheArray[5] = (string)CoinPriceB["result"]["low"];
-            TrtlBotSharp.marketCacheArray[6] = (string)CoinPriceB["result"]["high"];
-            TrtlBotSharp.marketCacheArray[7] = (string)CoinPriceB["result"]["price"];      // Last
-            TrtlBotSharp.marketCacheArray[8] = (string)CoinPriceB["result"]["average"];    // for volume calc
-            TrtlBotSharp.marketCacheArray[9] = (string)CoinPriceB["result"]["volume"];     //stated in arms
-            TrtlBotSharp.marketCacheArray[10] = (string)BTCPrice["last"];                  // BTC Price
-            return Task.CompletedTask;
+            else
+            {
+                TrtlBotSharp.marketCacheArray[11] = (string)BTCPrice["last"];                  // BTC Price
+                return Task.CompletedTask;
+            }
         }
         
         // Formats hashrate into a readable format
