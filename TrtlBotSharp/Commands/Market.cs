@@ -24,8 +24,8 @@ namespace TrtlBotSharp
             Response.AddInlineField(TrtlBotSharp.coinSymbol + "-USD", string.Format("${0:N5} USD", (decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[3]) * (decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[10])));
             Response.AddInlineField("Volume BTC/USD", string.Format("{0:F4}/{1:C}", (decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[4]), (decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[4]) * (decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[10])));
             Response.AddInlineField("BTC-USD", string.Format("{0:C} USD", (decimal)decimal.Parse(TrtlBotSharp.marketCacheArray[10])));
-            DateTime cachedDate = DateTime.Parse(TrtlBotSharp.marketCacheArray[0]);
-            Response.AddInlineField("Data as of", string.Format("{0}", cachedDate));
+//            DateTime cachedDate = DateTime.Parse(TrtlBotSharp.marketCacheArray[0]);
+//            Response.AddInlineField("Data as of", string.Format("{0}", cachedDate));
  
             // Send FCB reply
             if (Context.Guild != null && TrtlBotSharp.marketDisallowedServers.Contains(Context.Guild.Id))
