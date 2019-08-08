@@ -73,15 +73,15 @@ namespace TrtlBotSharp
 
         // Market Variables
         public static string
-            marketSourceK = "Kompler",
-            marketEndpointK = "https://api.kompler.exchange/v1/markets/BTC/ARMS",
-            marketSourceR = "Raisex",
-            marketEndpointR = "https://raisex.io/market_summary/ARMS/BTC",
+            marketSourceK = "FirstCryptoBank",
+            marketEndpointK = "https://fcbaccount.com/api/public/v1/get/exchange/market?pair=BTC-ARMS",
+            marketSourceR = "FinexBox",
+            marketEndpointR = "https://xapi.finexbox.com/v1/ticker?market=arms_btc",
             marketBTCEndpoint = "https://www.bitstamp.net/api/ticker/";
         
         // Market Cache 
         public static string[]
-            marketCacheArray = { "01/01/2019 12:00:00 PM", "ck-low", "ck-high", "ck-last", "ck-vol", "cr-low", "cr-high", "cr-last", "cr-vol", "btc-price" };
+            marketCacheArray = { "01/01/2019 12:00:00 PM", "ck-low", "ck-high", "ck-last", "ck-vol", "cr-low", "cr-high", "cr-last", "cr-average", "cr-vol", "btc-price" };
 
         // Daemon Variables
         public static string
