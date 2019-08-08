@@ -73,10 +73,10 @@ namespace TrtlBotSharp
 
         // Market Variables
         public static string
-            marketSourceK = "FirstCryptoBank",
-            marketEndpointK = "https://fcbaccount.com/api/public/v1/get/exchange/market?pair=BTC-ARMS",
-            marketSourceR = "FinexBox",
-            marketEndpointR = "https://xapi.finexbox.com/v1/ticker?market=arms_btc",
+            marketSourceA = "FirstCryptoBank",
+            marketEndpointA = "https://fcbaccount.com/api/public/v1/get/exchange/market?pair=BTC-ARMS",
+            marketSourceB = "FinexBox",
+            marketEndpointB = "https://xapi.finexbox.com/v1/ticker?market=arms_btc",
             marketBTCEndpoint = "https://www.bitstamp.net/api/ticker/";
         
         // Market Cache 

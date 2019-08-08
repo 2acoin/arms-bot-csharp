@@ -70,7 +70,7 @@ namespace TrtlBotSharp
 
             // Get current coin price - 2nd Exchange (FinexBox
             JObject CoinPriceB = Request.GET(TrtlBotSharp.marketEndpointB);
-            if (CoinPriceTwo.Count < 1)
+            if (CoinPriceB.Count < 1)
             {
                 Log(0, "ARMSBot", "Error getting FinexBox");
                 return Task.CompletedTask;
