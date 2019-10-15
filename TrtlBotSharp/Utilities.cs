@@ -57,6 +57,7 @@ namespace TrtlBotSharp
             if (elapsedTime.Minutes < 15)
             {
                 Log(0, "ARMSBot", "{0} - Elapsed time less than 15 Minutes - {1} | Last Cache Time = {2}", TrtlBotSharp.marketSource, elapsedTime.Minutes, cachedTime);
+                return Task.CompletedTask;
             }
             else
             {
@@ -66,6 +67,7 @@ namespace TrtlBotSharp
                 {
                     Log(0, "ARMSBot", "Error getting {0} exchange information", TrtlBotSharp.marketSource);
                     TrtlBotSharp.marketCacheArray[0] = "01/01/2019 12:00:00 PM";
+                    return Task.CompletedTask;
                 }
                 else
                 {
