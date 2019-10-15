@@ -35,10 +35,8 @@ namespace TrtlBotSharp
                 faucetPort = (int)Config["faucetPort"];
                 faucetEndpoint = (string)Config["faucetEndpoint"];
                 faucetAddress = (string)Config["faucetAddress"];
-                marketSourceA = (string)Config["marketSourceA"];
-                marketEndpointA = (string)Config["marketEndpointA"];
-                marketSourceB = (string)Config["marketSourceB"];
-                marketEndpointB = (string)Config["marketEndpointB"];
+                marketSource = (string)Config["marketSource"];
+                marketEndpoint = (string)Config["marketEndpoint"];
                 marketBTCEndpoint = (string)Config["marketBTCEndpoint"];
                 marketDisallowedServers = Config["marketDisallowedServers"].ToObject<List<ulong>>();
                 daemonHost = (string)Config["daemonHost"];
@@ -75,10 +73,8 @@ namespace TrtlBotSharp
                 ["faucetPort"] = faucetPort,
                 ["faucetEndpoint"] = faucetEndpoint,
                 ["faucetAddress"] = faucetAddress,
-                ["marketSourceA"] = marketSourceA,
-                ["marketEndpointA"] = marketEndpointA,
-                ["marketSourceB"] = marketSourceB,
-                ["marketEndpointB"] = marketEndpointB,
+                ["marketSource"] = marketSource,
+                ["marketEndpoint"] = marketEndpoint,
                 ["marketBTCEndpoint"] = marketBTCEndpoint,
                 ["marketDisallowedServers"] = JToken.FromObject(marketDisallowedServers),
                 ["daemonHost"] = daemonHost,

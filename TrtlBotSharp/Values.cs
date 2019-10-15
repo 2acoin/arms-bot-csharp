@@ -73,10 +73,8 @@ namespace TrtlBotSharp
 
         // Market Variables
         public static string
-            marketSourceA = "FirstCryptoBank",
-            marketEndpointA = "https://fcbaccount.com/api/public/v1/get/exchange/market?pair=BTC-ARMS",
-            marketSourceB = "FinexBox",
-            marketEndpointB = "https://xapi.finexbox.com/v1/ticker?market=arms_btc",
+            marketSource = "CoinGecko",
+            marketEndpoint = "https://api.coingecko.com/api/v3/coins/2acoin?tickers=true&market_data=true&community_data=false&developer_data=false&sparkline=false",
             marketBTCEndpoint = "https://www.bitstamp.net/api/ticker/";
         
         // Market Cache 
