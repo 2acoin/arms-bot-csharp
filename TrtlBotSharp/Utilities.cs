@@ -75,10 +75,10 @@ namespace TrtlBotSharp
                     Log(0, "ARMSBot", "Setting New Cache values for {0}", TrtlBotSharp.marketSource);            
                     string marketCacheNow = DateTime.Now.ToString("MM/dd/yyyy h:mm:ss tt");
                     TrtlBotSharp.marketCacheArray[0] = marketCacheNow;
-                    TrtlBotSharp.marketCacheArray[1] = (string)CoinPrice["market_data"]["low_24h"]["btc"];
-                    TrtlBotSharp.marketCacheArray[2] = (string)CoinPrice["market_data"]["high_24h"]["btc"];
-                    TrtlBotSharp.marketCacheArray[3] = (string)CoinPrice["market_data"]["current_price"]["btc"];
-                    TrtlBotSharp.marketCacheArray[4] = (string)CoinPrice["market_data"]["total_volume"]["btc"];                
+                    TrtlBotSharp.marketCacheArray[1] = string.Format("{0:F8}",CoinPrice["market_data"]["low_24h"]["btc"]);
+                    TrtlBotSharp.marketCacheArray[2] = string.Format("{0:F8}",CoinPrice["market_data"]["high_24h"]["btc"]);
+                    TrtlBotSharp.marketCacheArray[3] = string.Format("{0:F8}",CoinPrice["market_data"]["current_price"]["btc"]);
+                    TrtlBotSharp.marketCacheArray[4] = string.Format("{0:F8}",CoinPrice["market_data"]["total_volume"]["btc"]);                
 
                     TrtlBotSharp.marketCacheArray[5] = marketCacheNow;
                     TrtlBotSharp.marketCacheArray[6] = (string)CoinPrice["market_data"]["low_24h"]["usd"];
