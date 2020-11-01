@@ -37,7 +37,7 @@ namespace TrtlBotSharp
         {
             // Get height
             decimal Height = 0;
-            JObject Result = Request.GET("http://" + TrtlBotSharp.daemonHost + ":" + TrtlBotSharp.daemonPort + "/getinfo");
+            JObject Result = Request.GET("http://" + TrtlBotSharp.daemonHost + ":" + TrtlBotSharp.daemonPort + "/info");
             if (Result.Count > 0 && !Result.ContainsKey("error"))
                 Height = (decimal)Result["height"];
 
